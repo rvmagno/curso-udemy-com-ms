@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("")
 public class StatusController {
 
     @GetMapping("status")
