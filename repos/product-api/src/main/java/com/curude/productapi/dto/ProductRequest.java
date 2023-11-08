@@ -1,16 +1,18 @@
 package com.curude.productapi.dto;
 
-import com.curude.productapi.model.Category;
-import com.curude.productapi.model.Supplier;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class ProductRequest {
 
 
     private String name;
 
-    private Supplier supplier;
+    private Integer supplier;
 
-    private Category category;
+    private Integer category;
 
+    @JsonProperty("quantity_available")
     private Integer qtyAvailable;
 }

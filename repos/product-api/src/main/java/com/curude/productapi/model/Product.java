@@ -4,11 +4,15 @@ import com.curude.productapi.dto.ProductRequest;
 import com.curude.productapi.dto.SupplierRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
+import java.time.LocalDateTime;
+
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -28,14 +32,27 @@ public class Product {
     @ManyToOne @JoinColumn(name = "FK_CATEGORY", nullable = false)
     private Category category;
 
-    @Column(nullable = false)
+    @Column(name="QTY_AVAILABLE", nullable = false)
     private Integer qtyAvailable;
 
+    @Column(name="CREATED_AT", nullable = false, updatable = false)
+    private LocalDateTime createAt;
 
-    public static Product of(ProductRequest request){
-        var entity = new Product();
-        BeanUtils.copyProperties(request, entity);
-        return entity;
+    @PrePersist
+    public void prePersist(){
+        createAt = LocalDateTime.now();
+    }
+
+    public static Product of(ProductRequest request, Category category, Supplier supplier){
+
+
+        return Product.builder()
+            .name(request.getName())
+            .category(category)
+            .qtyAvailable(request.getQtyAvailable())
+            .supplier(supplier)
+
+        .build();
     }
 
 
