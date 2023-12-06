@@ -15,13 +15,13 @@ class UserService{
             const { email, password } = req.body;
             this.validateAccessTokenData(email, password);
             let user = await UserRepository.findByEmail(email);
+            const authUser = { id: user.id, name: user.name, email: user.email}
             this.validateUserNotFound(user);
             this.validateAuthenticatedUser(user, authUser);
             
             console.log(user);
             await this.validatePassword(password, user.password);
 
-            const authUser = { id: user.id, name: user.name, email: user.email}
             const accessToken = jwt.sign( {authUser},  secret.API_SECRET , {expiresIn: "1d"}  )
             return {
                 status : httpStatus.SUCCESS,
@@ -94,7 +94,7 @@ class UserService{
     validateAuthenticatedUser(user, authUser){
         console.log("user" + user);
         console.log(authUser);
-        if(!authUser || !user.id !== authUser.id ){
+        if(!authUser || user.id !== authUser.id ){
             throw new UserException(
                 httpStatus.FORBIDDEN,
                 "You cannot see this user data");

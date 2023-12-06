@@ -5,6 +5,9 @@ server:
     context-path: /api
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
   application:
     name: product-api
 
@@ -27,3 +30,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+app-config:
+    secrets:
+      api-secrets: ${API_SECRET:YXV0aC1hcGktc2VjcmV0LWRldi0xMjM=}
