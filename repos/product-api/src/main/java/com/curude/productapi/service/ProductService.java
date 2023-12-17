@@ -4,6 +4,7 @@ import com.curude.productapi.config.exception.SuccessResponse;
 import com.curude.productapi.config.exception.ValidationException;
 import com.curude.productapi.dto.ProductRequest;
 import com.curude.productapi.dto.ProductResponse;
+import com.curude.productapi.dto.ProductStockDTO;
 import com.curude.productapi.model.Product;
 import com.curude.productapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +141,10 @@ public class ProductService  {
         if(isEmpty(request.getSupplier())){
             throw new ValidationException("the supplier was not informed");
         }
+
+    }
+
+    public void updateProductStock(ProductStockDTO productStockDTO){
 
     }
 }
