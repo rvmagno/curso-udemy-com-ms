@@ -16,7 +16,7 @@ public class ProductStockListener {
     @Autowired
     private ProductService service;
 
-    @RabbitListener(queues = "{app-config.rabbit.queue.product-stock}")
+    @RabbitListener(queues = "${app-config.rabbit.queue.product-stock}")
     public void receiveProductStockMessage(ProductStockDTO productDTO) throws JsonProcessingException {
         log.info("recebendo msg: {}", new ObjectMapper().writeValueAsString(productDTO));
         service.updateProductStock(productDTO);
