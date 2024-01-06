@@ -1,8 +1,7 @@
 package com.curude.productapi.controller;
 
 import com.curude.productapi.config.exception.SuccessResponse;
-import com.curude.productapi.dto.ProductRequest;
-import com.curude.productapi.dto.ProductResponse;
+import com.curude.productapi.dto.*;
 import com.curude.productapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,6 +75,20 @@ public class ProductController{
                 ResponseEntity
                         .status(HttpStatus.OK)
                         .body(service.delete(id));
+    }
+
+    @PostMapping("check-stock")
+    public ResponseEntity<SuccessResponse> checkProductStock(@RequestBody ProductCheckStockRequest request){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.checkProductStock(request));
+    }
+
+    @GetMapping("${id}/sales")
+    public ResponseEntity<ProductSalesResponse> findProductSales(@PathVariable Integer id){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.findProductSales(id));
     }
 
 

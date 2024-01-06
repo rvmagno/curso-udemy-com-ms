@@ -39,17 +39,20 @@ spring:
     virtual-host: ${RABBIT_MQ_VHOST:}
 
 app-config:
-    secrets:
-      api-secrets: ${API_SECRET:YXV0aC1hcGktc2VjcmV0LWRldi0xMjM=}
+  services:
+    sales: http://${SALES_HOST:localhost}:${SALES_PORT:8082}
 
-    rabbit:
-      exchange:
-        product: product.topic
+  secrets:
+    api-secrets: ${API_SECRET:YXV0aC1hcGktc2VjcmV0LWRldi0xMjM=}
 
-      routingKey:
-        product-stock: product-stock-update.routingKey
-        sales-confirmation: sales-confirmation.routingKey
+  rabbit:
+    exchange:
+      product: product.topic
 
-      queue:
-        product-stock: product-stock-update.queue
-        sales-confirmation: sales-confirmation.queue
+    routingKey:
+      product-stock: product-stock-update.routingKey
+      sales-confirmation: sales-confirmation.routingKey
+
+    queue:
+      product-stock: product-stock-update.queue
+      sales-confirmation: sales-confirmation.queue

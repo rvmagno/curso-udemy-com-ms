@@ -1,15 +1,14 @@
 package com.curude.productapi.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data  @NoArgsConstructor @AllArgsConstructor
-public class ProductStockDTO {
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
+public class ProductCheckStockRequest {
 
-    private String salesId;
     private List<ProductQuantityDTO> products;
-
 }

@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data  @NoArgsConstructor @AllArgsConstructor
-public class ProductStockDTO {
+@Data @AllArgsConstructor @NoArgsConstructor
+public class SalesProductResponse {
 
-    private String salesId;
-    private List<ProductQuantityDTO> products;
+    private List<String> salesIds;
 
 }

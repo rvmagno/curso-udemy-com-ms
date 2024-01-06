@@ -1,13 +1,11 @@
 package com.curude.productapi.model;
 
 import com.curude.productapi.dto.ProductRequest;
-import com.curude.productapi.dto.SupplierRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
 
@@ -55,5 +53,8 @@ public class Product {
         .build();
     }
 
+    public void updateStock(Integer quantity){
+        this.qtyAvailable = qtyAvailable - quantity;
+    }
 
 }
