@@ -42,7 +42,7 @@ class OrderService {
             user: authUser,
             createdAt: new Date(),
             updatedAt: new Date(),
-            products: orderData,
+            products: orderData.products,
         };
     }
 
@@ -90,6 +90,42 @@ class OrderService {
         }
         sendMessageToProductStockUpdateQueue(message);
     }
+
+    async findById(req) {
+        try {
+          const { id } = req.params;
+          const { transactionid, serviceid } = req.headers;
+          console.info(
+            `Request to GET order by ID ${id} | [transactionID: ${transactionid} | serviceID: ${serviceid}]`
+          );
+          this.validateInformedId(id);
+          const existingOrder = await OrderRepository.findById(id);
+          if (!existingOrder) {
+            throw new OrderException(BAD_REQUEST, "The order was not found.");
+          }
+          let response = {
+            status: SUCCESS,
+            existingOrder,
+          };
+          console.info(
+            `Response to GET order by ID ${id}: ${JSON.stringify(
+              response
+            )} | [transactionID: ${transactionid} | serviceID: ${serviceid}]`
+          );
+          return response;
+        } catch (err) {
+          return {
+            status: err.status ? err.status : INTERNAL_SERVER_ERROR,
+            message: err.message,
+          };
+        }
+    }
+
+    validateInformedId(id) {
+        if (!id) {
+          throw new OrderException(BAD_REQUEST, "The order ID must be informed.");
+        }
+      }
 
 }
 
